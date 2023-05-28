@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    volumes:
+      - ./src:/var/www:cached
+    working_dir: "/var/www"
+    ports:
+      - 8081:80
+      - 5678:5678
+    env_file:
+      - .env
+    tty: true
+    # command: uvicorn main:app --reload --host 0.0.0.0 --port 80
+    command: python3 -m debugpy --listen 0.0.0.0:5678 -m uvicorn main:app --reload --host 0.0.0.0 --port 80
+  firebase:
+    build:
+      context: ./firebase
+      dockerfile: Dockerfile
+    volumes:
+      - ./firebase/emulators/:/opt/workspace:cached
+      - ./firebase/bin/:/root/.cache:cached
+      - ./firebase/config/:/root/.config:cached
+      - ./firebase/data/:/root/data:cached
+    ports:
+      - 4000:4000 # Emulator Suite UI
+      - 8080:8080 # Cloud Firestore
+      - 9099:9099 # Firebase Auth
+    working_dir: /opt/workspace
+    command: firebase emulators:start --import /root/data --export-on-exit
+    tty: true
+
+networks:
+  default:
+    name: backend

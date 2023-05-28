@@ -1,0 +1,42 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.241.1/containers/docker-existing-dockerfile
+{
+	"name": "Existing Dockerfile",
+	// Sets the run context to one level up instead of the .devcontainer folder.
+	// "context": "..",
+	// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
+	// "dockerFile": "../Dockerfile",
+	"service": "api",
+	"dockerComposeFile": [
+		"../docker-compose.yml"
+	],
+	"workspaceFolder": "/var/www",
+	"settings": {
+		"python.linting.enabled": true,
+		// "python.linting.pylintEnabled": true,
+		// "python.linting.pylintArgs": [
+		// 	"--disable",
+		// 	"E1101,E0213,R0201",
+		// 	"--extension-pkg-whitelist",
+		// 	"pydantic",
+		// ],
+		"python.linting.mypyEnabled": true,
+		// "python.linting.flake8Enabled": true,
+		"python.analysis.typeCheckingMode": "strict",
+		"python.analysis.diagnosticSeverityOverrides": {
+			"reportMissingTypeStubs": "none",
+			"reportUnknownParameterType": "none",
+			"reportUnknownMemberType": "none",
+			"reportUnknownArgumentType": "none",
+			"reportUnknownVariableType": "none"
+		}
+	},
+	"extensions": [
+		"ms-python.python",
+		"njpwerner.autodocstring",
+		"ms-python.vscode-pylance",
+	],
+	"editor.codeActionsOnSave": {
+		"source.organizeImports": true
+	},
+}

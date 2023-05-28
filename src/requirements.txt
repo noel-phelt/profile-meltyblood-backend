@@ -1,0 +1,11 @@
+autopep8
+debugpy
+fastapi
+firebase_admin
+flake8
+google-cloud-storage
+isort
+mypy
+pytest
+python-multipart
+uvicorn
