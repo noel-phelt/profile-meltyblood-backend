@@ -21,3 +21,11 @@ GCP = {
     "project_id": os.environ.get('PROJECT_ID'),
     "bucket_name": os.environ.get('BUCKET_NAME'),
 }
+
+SITE = {
+    "url": os.environ.get('SITE_URL'),
+}
+
+SHARE = {
+    "expiration_days": int(os.environ.get('SHARE_EXPIRATION_DAYS', '30')),
+}
