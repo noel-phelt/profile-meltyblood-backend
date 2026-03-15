@@ -1,11 +1,12 @@
 autopep8
 debugpy
-fastapi
+fastapi<0.100
 firebase_admin
 flake8
 google-cloud-storage
 isort
 mypy
+pydantic<2
 pytest
 python-multipart
-uvicorn
+uvicorn<0.24
