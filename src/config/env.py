@@ -11,3 +11,11 @@ GCP = {
     or os.environ.get('GCLOUD_PROJECT'),
     "bucket_name": os.environ.get('BUCKET_NAME'),
 }
+
+SITE = {
+    "url": os.environ.get('SITE_URL'),
+}
+
+SHARE = {
+    "expiration_days": int(os.environ.get('SHARE_EXPIRATION_DAYS', '30')),
+}

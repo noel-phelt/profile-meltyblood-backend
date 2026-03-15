@@ -20,5 +20,16 @@ class CloudStorage:
 
         return file_name
 
+    def upload_share(self, share_image: UploadFile, share_id: str) -> dict[str, str]:
+        path = f"shares/{share_id}.png"
+        blob_storage = self.bucket.blob(path)
+        blob_storage.upload_from_file(
+            share_image.file, content_type=share_image.content_type
+        )
+        return {
+            "path": path,
+            "url": blob_storage.public_url,
+        }
+
     def delete_profile(self, image_path: str):
         self.bucket.delete_blob('profiles/' + image_path)
