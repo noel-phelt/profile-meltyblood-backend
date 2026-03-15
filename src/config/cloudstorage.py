@@ -2,18 +2,13 @@ import uuid
 
 from fastapi import UploadFile
 from google.cloud import storage
-from google.oauth2 import service_account
 
-from config.env import FIREBASE_CERT, GCP
-
-credential = service_account.Credentials.from_service_account_info(
-    FIREBASE_CERT)
+from config.env import GCP
 
 
 class CloudStorage:
     def __init__(self):
-        self.client = storage.Client(
-            project=GCP['project_id'], credentials=credential)
+        self.client = storage.Client(project=GCP['project_id'])
         self.bucket = self.client.get_bucket(GCP['bucket_name'])
 
     def upload_profile(self, profile_image: UploadFile) -> str:
@@ -24,6 +19,17 @@ class CloudStorage:
             profile_image.file, content_type=profile_image.content_type)
 
         return file_name
+
+    def upload_share(self, share_image: UploadFile, share_id: str) -> dict[str, str]:
+        path = f"shares/{share_id}.png"
+        blob_storage = self.bucket.blob(path)
+        blob_storage.upload_from_file(
+            share_image.file, content_type=share_image.content_type
+        )
+        return {
+            "path": path,
+            "url": blob_storage.public_url,
+        }
 
     def delete_profile(self, image_path: str):
         self.bucket.delete_blob('profiles/' + image_path)
